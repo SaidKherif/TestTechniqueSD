@@ -1,0 +1,30 @@
+
+COMPOSANT TEXT INPUT
+<Text style={{color: '#8181A5', fontSize: 14, fontFamily: 'Lato',  marginTop: 32.61, marginLeft: 24.78, marginRight: 24.78,}}>Recherche Twitter</Text>
+        <TextInput
+          placeholder="Search"
+          value={val}
+          onChangeText={(value) => {
+            this.setState({val: value})
+            console.log("INTER VAL = " + interval_id)
+            clearInterval(interval_id)
+            interval_id = 0;
+            console.log("INTER VAL = " + interval_id)
+          }}
+          onSubmitEditing={() => {(
+            this.fetchtweetdata(this.state.val).then((resc) => this.setState({resp: resc})),
+            interval_id = setInterval(() => {
+              this.fetchtweetdata(this.state.val).then((resc) => this.setState({resp: resc}))
+          }, 10000),
+          console.log(interval_id)
+          )}}
+            //this.fetchtweetdata(this.state.val).then((resc) => this.setState({resp: resc}))
+           // )}}
+          style={styles.textinput}
+        />
+
+
+COMPOSANT TweetRender
+<ScrollView contentContainerStyle={{}}>
+            {this.state.resp ? this.affichertweets(this.state.resp) : <Text></Text>}
+</ScrollView>
